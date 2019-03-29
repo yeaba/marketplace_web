@@ -1,7 +1,20 @@
 <!DOCTYPE html>
 <html dir="ltr">
 <head>
-    
+        <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
+        <script>
+          // Initialize Firebase
+          // TODO: Replace with your project's customized code snippet
+          var config = {
+            apiKey: "<API_KEY>",
+            authDomain: "<PROJECT_ID>.firebaseapp.com",
+            databaseURL: "https://<DATABASE_NAME>.firebaseio.com",
+            projectId: "<PROJECT_ID>",
+            storageBucket: "<BUCKET>.appspot.com",
+            messagingSenderId: "<SENDER_ID>",
+          };
+          firebase.initializeApp(config);
+        </script>
 	<script>
     var themeHasJQuery = !!window.jQuery;
 </script>
@@ -43,18 +56,81 @@
 </div>
     </div>
 </div>
+<a 
+ href="home.html" class="bd-linkbutton-16  bd-button  bd-own-margins bd-content-element"    >
+    Home
+</a>
+	
+		<a 
+ href="Search.html" class="bd-linkbutton-5  bd-button  bd-own-margins bd-content-element"    >
+    Search
+</a>
+	
+		<a 
+ href="PostItem.html" class="bd-linkbutton-14  bd-button  bd-own-margins bd-content-element"    >
+    Post Item
+</a>
+	
+		<a 
+ href="CurrentAuctions.html" class="bd-linkbutton-12  bd-button  bd-own-margins bd-content-element"    >
+    Current Auctions
+</a>
+	
+		<a 
+ href="Account.html" class="bd-linkbutton-7  bd-button  bd-own-margins bd-content-element"    >
+    Account
+</a>
+	
+		<a 
+ href="Sign.html" class="bd-linkbutton-2  bd-button  bd-own-margins bd-content-element"    >
+    Sign upSign in
+</a>
     </div>
 </section>
 </header>
-	
+<h1 class=" bd-textblock-28  bd-content-element">
+    Sign up/ Sign in<br>
+</h1>
+	<div>
+        <form action="action_page.php">
+            <div class="imgcontainer">
+              <img src="img_avatar2.png" alt="Avatar" class="avatar">
+            </div>
+          
+            <div class="container">
+              <label for="uname"><b>First Name</b></label>
+              <input type="text" placeholder="Enter Username" name="uname" required>
+
+              <label for="uname"><b>Last Name</b></label>
+              <input type="text" placeholder="Enter Username" name="uname" required>
+                
+              <label for="uname"><b>Email Address</b></label>
+              <input type="text" placeholder="Enter Username" name="uname" required>  
+
+              <label for="uname"><b>Username</b></label>
+              <input type="text" placeholder="Enter Username" name="uname" required>
+          
+              <label for="psw"><b>Password</b></label>
+              <input type="password" placeholder="Enter Password" name="psw" required>
+          
+              <button type="submit">Login</button>
+              <label>
+                <input type="checkbox" checked="checked" name="remember"> Remember me
+              </label>
+            </div>
+          
+            <div class="container" style="background-color:#f1f1f1">
+              <button type="button" class="cancelbtn">Cancel</button>
+              <span class="psw">Forgot <a href="#">password?</a></span>
+            </div>
+          </form> 
+    </div>
 		<div class=" bd-stretchtobottom-2 bd-stretch-to-bottom" data-control-selector=".bd-content-12"><div class=" bd-content-12 ">
     
     <div class=" bd-htmlcontent-6 bd-margins" 
  data-page-id="page.17">
     <div class="bd-containereffect-8 container-effect container ">
-<h1 class=" bd-textblock-28  bd-content-element">
-    Sign up/ Sign in<br>
-</h1>
+
 </div>
 </div>
 </div></div>
@@ -63,14 +139,11 @@
         <section class=" bd-section-2 bd-tagstyles" id="section2" data-section-title="">
     <div class="bd-container-inner bd-margins clearfix">
         <p class=" bd-textblock-1 bd-content-element">
-    © 2016 Themler.com
+    
 </p>
 	
 		<div class=" bd-pagefooter-1">
-    <div class="bd-container-inner">
-        
-            <a href='http://www.themler.io/html-templates' target="_blank">HTML Template</a> created with <a href='http://themler.io' target="_blank">Themler</a>.
-    </div>
+    
 </div>
     </div>
 </section>
