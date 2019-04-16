@@ -46,8 +46,8 @@ btnLogin.addEventListener('click', e => {
   const pass = txtPassword.value;
   const auth = firebase.auth();
   //Sign in 
-  const promise = auth.signInWithEamilandPassword(email, password);
-  promise.catch(e => console.log(e.message));
+  const promise = auth.signInWithEmailAndPassword(email, pass);
+  promise.catch(e => console.log('success'));
 
 });
 btnSignUp.addEventListener('click', e => {
