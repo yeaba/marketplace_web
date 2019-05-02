@@ -4,6 +4,8 @@ function signIn() {
     console.log("INNNN")
     const email = document.getElementById('login-email').value
     const pass = document.getElementById('login-pass').value
+    const fname = document.getElementById('login-fname').value
+    const lname = document.getElementById('login-lname').value
     firebase.auth().signInWithEmailAndPassword(email, pass).then(function () {
         console.log("signed in")
     }).catch(function (error) {
@@ -11,15 +13,72 @@ function signIn() {
 
     });
 }
+function signOut(){
+    firebase.auth().signOut();
+    console.log('user signed out')
+}
+function addUserToDatabase(userEmail, userFirstName, userPhone, password, username) {
+
+    var db = firebase.database()
+    console.log("got db")
+    firebase.auth().createUserWithEmailAndPassword(userEmail, password).then(function () {
+        console.log("Success")
+        var newUser = {
+            firstName: userFirstName,
+            email: userEmail,
+            phone: userPhone,
+            uname: username
+        }
+  
+        const newUserUID = firebase.auth().currentUser.uid
+        firebase.database().ref('users').child(newUserUID).set(newUser)
+    }).catch(function (error) { console.log("error" + error.message) })
+    console.log("Done")
+  }
+  
+function signUp(){
+    const email = document.getElementById('signup-email').value
+  const pass = document.getElementById('signup-pass').value
+  const username = document.getElementById('signup-username').value
+  const lname = document.getElementById('signup-lname').value
+  const fname = document.getElementById('signup-fname').value
+    const auth = firebase.auth();
+    //console.log('signed up')
+
+   
+    //firebase.auth().createUserWithEmailAndPassword(email, pass).then(function () {
+    addUserToDatabase(email, fname, pass, username)
+    promise.catch(e => console.log(e.message));
+    console.log('tada')
+}
+var itemID = 0;
+var imageID = 0;
+var nextitemID = itemID + 1;//get most recent id number from database;
+var nextImageIF = imageID +1;
 var db = firebase.database();
+function today() {
+    var d = new Date()
+    var today = (d.getMonth() + 1) + ":" + d.getDate() + ":" + d.getFullYear()
+    return today
+}
+
+//get elements
+function getimg(){
+    //var pic = document.getElementById('pic');
+    var fileupload = document.getElementById('browseButton');
+    //listen
+    fileupload.addEventListener('change', function(e){
+        var file = e.target.files(0);
+        firebase.storage().ref('images/' + imageID.toString());
+        storageRef.put(file);
+        console.log('uploaded!');
+    });
+}
 function postItem() {
-    // var imageName = (uid.jpg);
-    //var uidRef = imagesRef.child(imageName);
-    //var path = uidRef.fullPath
-    //var name = uidRef.name;
-    //var imagesRef = uidRef.parent;
-    //var today = new Date();
-    //var date = today.getFullYear() + '/'+(today.getMonth()+1)+'/'+today.getDate();
+    
+    
+    
+    imageID= imageID +1;
     
     const title = document.getElementById('post-title').value;
     const desc = document.getElementById('post-desc').value;
@@ -27,28 +86,30 @@ function postItem() {
     const categ = document.getElementById('post-categ').value;
     const cond = document.getElementById('post-itemcond').value;
     const uid = firebase.auth().currentUser.uid;
-    const date = ServerValue.TIMESTAMP;
+    const date = today();
     const status_winner = 0;
     const status_available = 'available';
     console.log("got values")
 
     var itemData = {
         ownerId: uid,
-        // img: image,
+        //img: getimg(),
         item_cond: cond,
         title: title,
         price: price,
         category: categ,
         new_owner: status_winner,
         available: status_available,
-        // ownerID: uid,
+        //itemkey:itemID,
         description: desc,
         posted_on: date,
-        // itemID: newItemKey
+        //itemID: newItemKey
     };
     //creates a new key for the post
-
-    db.ref().child('items').child().set(itemData)
+    
+    db.ref().child('items').child(itemID).set(itemData)
+    itemID = itemID + 1;
+    db.ref().child('items').child('next_item_id').set(itemData);
     // var newItemKey = db.ref().child('items').push().key;
     // //writes the new post's data in the post list and user post list
     // var updates = {};
