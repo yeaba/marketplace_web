@@ -17,7 +17,7 @@ function signOut(){
     firebase.auth().signOut();
     console.log('user signed out')
 }
-function addUserToDatabase(userEmail, userFirstName, userPhone, password, username) {
+/*function addUserToDatabase(userEmail, userFirstName, userPhone, password, username) {
 
     var db = firebase.database()
     console.log("got db")
@@ -27,7 +27,10 @@ function addUserToDatabase(userEmail, userFirstName, userPhone, password, userna
             firstName: userFirstName,
             email: userEmail,
             phone: userPhone,
-            uname: username
+            uname: username,
+            phnum: phone,
+            address1: adr1,
+            address2: adr2
         }
   
         const newUserUID = firebase.auth().currentUser.uid
@@ -38,19 +41,63 @@ function addUserToDatabase(userEmail, userFirstName, userPhone, password, userna
   
 function signUp(){
     const email = document.getElementById('signup-email').value
-  const pass = document.getElementById('signup-pass').value
-  const username = document.getElementById('signup-username').value
-  const lname = document.getElementById('signup-lname').value
-  const fname = document.getElementById('signup-fname').value
+    const pass = document.getElementById('signup-pass').value
+    const username = document.getElementById('signup-username').value
+    const lname = document.getElementById('signup-lname').value
+    const fname = document.getElementById('signup-fname').value
+    
     const auth = firebase.auth();
-    //console.log('signed up')
+    console.log("signed up")
 
    
     //firebase.auth().createUserWithEmailAndPassword(email, pass).then(function () {
-    addUserToDatabase(email, fname, pass, username)
+    const promise = addUserToDatabase(email, fname, lname, pass, username, phone, addr1, addr2);
     promise.catch(e => console.log(e.message));
+    console.log("tada")
+}*/
+function signUp() {
+    const email = document.getElementById('signup-email').value
+    const pass = document.getElementById('signup-pass').value
+    const username = document.getElementById('signup-username').value
+    const lname = document.getElementById('signup-lname').value
+    const fname = document.getElementById('signup-fname').value
+    const phone = document.getElementById('signup-phone').value
+    const addr1 = document.getElementById('signup-address1').value
+    const city = document.getElementById('signup-city').value
+    const state = document.getElementById('signup-state').value
+    const zip = document.getElementById('signup-zip').value
+    const auth = firebase.auth();
+
+    var user = {
+        email: email,
+        firstName: fname,
+        lastName: lname,
+        userName: username,
+        phone: phone,
+        address: {
+            line1: addr1,
+            city: city,
+            state: state,
+            zip: zip
+        }
+    };
+
+
+    //firebase.auth().createUserWithEmailAndPassword(email, pass).then(function () {
+    addUserToDatabase(user, pass)
     console.log('tada')
 }
+
+function addUserToDatabase(user, pass) {
+
+    var db = firebase.database()
+    firebase.auth().createUserWithEmailAndPassword(user.email, pass).then(function () {
+        const newUserUID = firebase.auth().currentUser.uid
+        firebase.database().ref('users').child(newUserUID).set(user)
+    }).catch(function (error) { console.log("error" + error.message) })
+    console.log("Done")
+}
+
 var itemID = 0;
 var imageID = 0;
 var nextitemID = itemID + 1;//get most recent id number from database;
