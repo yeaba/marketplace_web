@@ -4,8 +4,8 @@ function signIn() {
     console.log("INNNN")
     const email = document.getElementById('login-email').value
     const pass = document.getElementById('login-pass').value
-    const fname = document.getElementById('login-fname').value
-    const lname = document.getElementById('login-lname').value
+    //const fname = document.getElementById('login-fname').value
+    //const lname = document.getElementById('login-lname').value
     firebase.auth().signInWithEmailAndPassword(email, pass).then(function () {
         console.log("signed in")
     }).catch(function (error) {
@@ -17,44 +17,7 @@ function signOut(){
     firebase.auth().signOut();
     console.log('user signed out')
 }
-/*function addUserToDatabase(userEmail, userFirstName, userPhone, password, username) {
 
-    var db = firebase.database()
-    console.log("got db")
-    firebase.auth().createUserWithEmailAndPassword(userEmail, password).then(function () {
-        console.log("Success")
-        var newUser = {
-            firstName: userFirstName,
-            email: userEmail,
-            phone: userPhone,
-            uname: username,
-            phnum: phone,
-            address1: adr1,
-            address2: adr2
-        }
-  
-        const newUserUID = firebase.auth().currentUser.uid
-        firebase.database().ref('users').child(newUserUID).set(newUser)
-    }).catch(function (error) { console.log("error" + error.message) })
-    console.log("Done")
-  }
-  
-function signUp(){
-    const email = document.getElementById('signup-email').value
-    const pass = document.getElementById('signup-pass').value
-    const username = document.getElementById('signup-username').value
-    const lname = document.getElementById('signup-lname').value
-    const fname = document.getElementById('signup-fname').value
-    
-    const auth = firebase.auth();
-    console.log("signed up")
-
-   
-    //firebase.auth().createUserWithEmailAndPassword(email, pass).then(function () {
-    const promise = addUserToDatabase(email, fname, lname, pass, username, phone, addr1, addr2);
-    promise.catch(e => console.log(e.message));
-    console.log("tada")
-}*/
 function signUp() {
     const email = document.getElementById('signup-email').value
     const pass = document.getElementById('signup-pass').value
@@ -98,10 +61,10 @@ function addUserToDatabase(user, pass) {
     console.log("Done")
 }
 
-var itemID = 0;
-var imageID = 0;
-var nextitemID = itemID + 1;//get most recent id number from database;
-var nextImageIF = imageID +1;
+var itemId = 0;
+var imageId = 0;
+//var nextitemID = itemID + 1;//get most recent id number from database;
+var nextImageId = imageId +1;
 var db = firebase.database();
 function today() {
     var d = new Date()
@@ -125,8 +88,8 @@ function postItem() {
     
     
     
-    imageID= imageID +1;
-    
+    //imageID= imageID +1;
+     
     const title = document.getElementById('post-title').value;
     const desc = document.getElementById('post-desc').value;
     const price = document.getElementById('post-price').value;
@@ -147,22 +110,65 @@ function postItem() {
         category: categ,
         new_owner: status_winner,
         available: status_available,
-        //itemkey:itemID,
+        //itemkey:itemId,
         description: desc,
         posted_on: date,
         //itemID: newItemKey
     };
     //creates a new key for the post
-    
-    db.ref().child('items').child(itemID).set(itemData)
-    itemID = itemID + 1;
-    db.ref().child('items').child('next_item_id').set(itemData);
-    // var newItemKey = db.ref().child('items').push().key;
-    // //writes the new post's data in the post list and user post list
-    // var updates = {};
-    // updates['/items/' + newItemKey] = itemData;
-    // updates['/user-items/' + uid + '/' + newItemKey] = itemData;
+    var db = firebase.database()
+    db.ref("items").child("next_item_id").once('value').then(function(data) {
+        const itemId = data.val();
+        const nextItemId = itemId + 1;
+        db.ref().child('items').child(itemId).set(itemData)
+        db.ref().child('items').child('next_item_id').set(nextItemId);
+    })
 
     console.log("success");
-    //return firebase.database().ref().update(updates);
+
+}
+function feed() {
+    updateFeedTableWithHeader()
+
+    db.ref('items').once('value').then(function (data) {
+        const itemsData = data.val();
+        delete itemsData.next_item_id
+        updateFeedContents(itemsData)
+        console.log(itemsData);
+        console.log("hello")
+    });
+}
+function updateFeedTableWithHeader() {
+    console.log('sfsf')
+    var table = document.getElementById('feeds')
+    table.innerHTML = ''
+    var row = table.insertRow(table.rows.length)
+    var titleCell = row.insertCell(0)
+    titleCell.innerHTML = "Title"
+    var descriptionCell = row.insertCell(1)
+    descriptionCell.innerHTML = "Description"
+}
+
+function updateFeedContents(data) {
+    var itemIds = Object.keys(data)
+    var table = document.getElementById('feeds')
+    for (var i = 0; i < itemIds.length; i++) {
+        const item = data[itemIds[i]]
+        var row = table.insertRow(table.rows.length)
+        row.innerHTML = buildItemRow(item)
+    }
+    var row = table.insertRow(table.rows.length)
+    row.innerHTML = buildItemRow()
+
+}
+
+function buildItemRow(item) {
+    var title = item['title']
+    var description = item['description']
+    var imageRef = item['imageRef']
+    var price = item['priceInCents']
+    console.log(imageRef)
+    var retVal = ' <div class = "row"> <div class = "col s4"><img src= ' + imageRef + ' style="width: 300px" alt=""> </div> <div class = "col s8"> <b> ' + title + '</b>'
+    retVal += ' <br> Description : ' + description + ' <br> Price: ' + price + '</div> </div>'
+    return retVal
 }
