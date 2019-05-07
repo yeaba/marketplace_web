@@ -1,0 +1,244 @@
+<html>
+
+<head>
+    <title> Market Place </title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Google Charts-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+    <!-- Arvo Font-->
+    <link href="https://fonts.googleapis.com/css?family=Arvo:700" rel="stylesheet">
+    <!-- Convergence Font-->
+    <link href="https://fonts.googleapis.com/css?family=Convergence" rel="stylesheet">
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var firebaseConfig = {
+            apiKey: "AIzaSyCEqWuL7oLq3Xl0-7WIEuEbsE2EgkTbo0M", 
+            authDomain: "marketplacev2-21876.firebaseapp.com",
+            databaseURL: "https://marketplacev2-21876.firebaseio.com",
+            projectId: "marketplacev2-21876",
+            storageBucket: "marketplacev2-21876.appspot.com",
+            messagingSenderId: "169110498947"
+  };  
+            firebase.initializeApp(firebaseConfig);
+            
+    </script>
+    <script type="text/javascript">
+        // Load google charts
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.load('current', { 'packages': ['table'] });
+    //google.charts.setOnLoadCallback(fetchData);
+    </script>
+    <script src="index_auth2.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.sidenav').sidenav();
+        });
+    </script>
+</head>
+
+<body>
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper blue darken-1">
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <a class="mainbtn waves-effect waves-light modal-trigger" id="athlete_si_btn"
+                        href="#login-modal">Log in</i></a>
+                    <a class="mainbtn waves-effect waves-light modal-trigger" id="athlete_si_btn"
+                        href="#post-item-modal">Post Item</i></a>
+                    <a class="mainbtn waves-effect waves-light modal-trigger" id="athlete_si_btn"
+                        href="#signup-modal">Sign up</i></a>
+                    <a class="mainbtn waves-effect waves-light modal-trigger" id="athlete_si_btn"
+                         href = "#signout-modal"onclick="signOut()">Sign out</i></a>
+                </ul>
+                <a href="#!" class="brand-logo"
+                    style="font-family: 'Convergence', serif;"><strong>MarketPlace</strong></a>
+                <a hidden="true" id="drop_down_btn" href="#" data-target="mobile-demo" class="sidenav-trigger"><i
+                        class="material-icons">arrow_drop_down</i></a>
+            </div>
+        </nav>
+
+    </div>
+    <h1><center>Welcome to Marketplace</center></h1>
+    <h3><center>Here you can buy and sell anything you need for college and school in general. Items sold here range from books to appliances to clothes and more!</center></h3>
+
+    <table id="feeds">
+    </table>
+<!--Sign up to be authenticated-->
+<div id="signup-modal" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <h4><strong>Sign Up</strong></h4>
+        <div class="row">
+            <div class="input-field col s12">
+                <input type="text" id="signup-email">
+                <label for="athlete-si-email"> Email (without @udallas.edu) </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input type="text" id="signup-fname">
+                <label for="athlete-si-fname"> First Name</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input type="text" id="signup-lname">
+                <label for="athlete-si-lname"> Last Name </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input type="text" id="signup-phone">
+                <label for="athlete-si-lname"> Phone </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input type="text" id="signup-address1">
+                <label for="athlete-si-lname"> Address (street address) </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input type="text" id="signup-city">
+                <label for="athlete-si-lname"> City </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input type="text" id="signup-state">
+                <label for="athlete-si-lname"> State </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input type="text" id="signup-zip">
+                <label for="athlete-si-lname"> Zip </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input type="text" id="signup-username">
+                <label for="athlete-si-username"> Username </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input type="password" id="signup-pass">
+                <label for="athlete-si-pass"> Password </label>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a class="btn waves-effect waves-light red modal-close">Close</a>
+        <a class="btn waves-effect waves-light green" id="btnsignUp" onclick="signUp()">Sign Up</a>
+    </div>
+</div>
+</div>
+<!-------------------------------------------->
+<!--Sign in to view items.-->
+<div id="login-modal" class="modal modal-fixed-footer">
+<div class="modal-content">
+    <h4><strong>Sign In</strong></h4>
+    <div class="row">
+        <div class="input-field col s12">
+            <input type="text" id="login-email">
+            <label for="athlete-si-email"> Email (without @udallas.edu) </label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s12">
+            <input type="password" id="login-pass">
+            <label for="athlete-si-pass"> Password </label>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <a class="btn waves-effect waves-light red modal-close">Close</a>
+    <a class="btn waves-effect waves-light green" id="btnLogin" onclick="signIn()">Sign In</a>
+    <a class="btn waves-effect waves-light orange curved" onclick="forgotPasswordAth()">Reset Password</a>
+</div>
+</div>
+</div>
+<!---------------------------------------------------------------------------------->
+
+     <!--Post an Item to Sell-->
+     <div id="post-item-modal" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h4><strong>Post Item </strong></h4>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input type="text" id="post-title">
+                    <label for="post-title"> Title </label>
+                </div>
+            </div>
+            <div class = "row">
+                <div class="input-field col s12">
+                    <input type="text" id="post-itemcond">
+                    <label for="post-itemcond"> Condition </label>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input type="password" id="post-desc">
+                    <label for="post-desc"> Description </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input type="text" id="post-categ">
+                    <label for="post-categ"> Category </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input type="password" id="post-price">
+                    <label for="post-price"> Price </label>
+                </div>
+            </div>
+            <div class = "row">
+            <form action="myform.cgi">
+                <input type="file" name="fileupload" value="fileupload" id="fileupload">
+                <label for="fileupload"> Select a file to upload</label>
+                    <!--<br><input type="image" src="/wp-content/uploads/sendform.png" alt="Submit" width="100">-->
+            </form>
+            </div>
+      
+        
+        <div class="modal-footer">
+            <a class="btn waves-effect waves-light red modal-close">Close</a>
+            <a class="btn waves-effect waves-light green" onclick="postItem()" onclick="getimg()">Post</a>
+        </div>
+    </div>
+    </div>
+    <!--------------------------------------------------------------------------->
+
+    <script>
+        // Init modal.
+        $(document).ready(function () {
+            $('.modal').modal();
+        })
+        // Init parallax.
+        $(document).ready(function () {
+            $('.parallax').parallax();
+        });
+    </script>
+
+
+</body>
+
+</html>
