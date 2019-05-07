@@ -6,27 +6,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="style.css">
 
-    <!-- Compiled and minified JavaScript -->
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <!-- Google Charts-->
+
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <!--Import Google Icon Font-->
+
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--Import materialize.css-->
+
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
-    <!-- Arvo Font-->
+
     <link href="https://fonts.googleapis.com/css?family=Arvo:700" rel="stylesheet">
-    <!-- Convergence Font-->
+
     <link href="https://fonts.googleapis.com/css?family=Convergence" rel="stylesheet">
 
-    <!--Let browser know website is optimized for mobile-->
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
     <script>
-        // Initialize Firebase
         var firebaseConfig = {
             apiKey: "AIzaSyCEqWuL7oLq3Xl0-7WIEuEbsE2EgkTbo0M", 
             authDomain: "marketplacev2-21876.firebaseapp.com",
@@ -39,10 +38,9 @@
             
     </script>
     <script type="text/javascript">
-        // Load google charts
         google.charts.load('current', { 'packages': ['corechart'] });
         google.charts.load('current', { 'packages': ['table'] });
-    //google.charts.setOnLoadCallback(fetchData);
+
     </script>
     <script src="index_auth2.js"></script>
     <script>
@@ -79,7 +77,7 @@
 
     <table id="feeds">
     </table>
-<!--Sign up to be authenticated-->
+
 <div id="signup-modal" class="modal modal-fixed-footer">
     <div class="modal-content">
         <h4><strong>Sign Up</strong></h4>
@@ -150,8 +148,7 @@
     </div>
 </div>
 </div>
-<!-------------------------------------------->
-<!--Sign in to view items.-->
+
 <div id="login-modal" class="modal modal-fixed-footer">
 <div class="modal-content">
     <h4><strong>Sign In</strong></h4>
@@ -175,9 +172,7 @@
 </div>
 </div>
 </div>
-<!---------------------------------------------------------------------------------->
 
-     <!--Post an Item to Sell-->
      <div id="post-item-modal" class="modal modal-fixed-footer">
         <div class="modal-content">
             <h4><strong>Post Item </strong></h4>
@@ -214,7 +209,6 @@
             <form action="myform.cgi">
                 <input type="file" name="fileupload" value="fileupload" id="fileupload">
                 <label for="fileupload"> Select a file to upload</label>
-                    <!--<br><input type="image" src="/wp-content/uploads/sendform.png" alt="Submit" width="100">-->
             </form>
             </div>
       
@@ -225,14 +219,12 @@
         </div>
     </div>
     </div>
-    <!--------------------------------------------------------------------------->
+    
 
     <script>
-        // Init modal.
         $(document).ready(function () {
             $('.modal').modal();
         })
-        // Init parallax.
         $(document).ready(function () {
             $('.parallax').parallax();
         });

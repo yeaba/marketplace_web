@@ -1,9 +1,8 @@
 function signIn() {
-    console.log("INNNN")
+   
     const email = document.getElementById('login-email').value
     const pass = document.getElementById('login-pass').value
     firebase.auth().signInWithEmailAndPassword(email, pass).then(function () {
-        console.log("signed in")
         feed()
     }).catch(function (error) {
         console.log(error.message)
@@ -11,7 +10,7 @@ function signIn() {
 }
 function signOut(){
     firebase.auth().signOut();
-    console.log('user signed out')
+
 }
 
 function signUp() {
@@ -42,9 +41,8 @@ function signUp() {
     };
 
 
-    //firebase.auth().createUserWithEmailAndPassword(email, pass).then(function () {
     addUserToDatabase(user, pass)
-    console.log('tada')
+
 }
 
 function addUserToDatabase(user, pass) {
@@ -54,21 +52,18 @@ function addUserToDatabase(user, pass) {
         const newUserUID = firebase.auth().currentUser.uid
         firebase.database().ref('users').child(newUserUID).set(user)
     }).catch(function (error) { console.log("error" + error.message) })
-    console.log("Done")
+
 }
 
 
 var db = firebase.database();
-//var db = firebase.database();
 function today() {
     var d = new Date()
     var today = (d.getMonth() + 1) + ":" + d.getDate() + ":" + d.getFullYear()
     return today
 }
 function postItem() {
-    //var imageName = (uid.jpg);
-    //var uidRef = imagesRef.child(imageName);
-    //var imagesRef = uidRef.parent;
+
     
     const title = document.getElementById('post-title').value;
     const desc = document.getElementById('post-desc').value;
@@ -79,17 +74,12 @@ function postItem() {
     const status_winner = 0;
     const status_available = 'available';
     const uid = firebase.auth().currentUser.uid;
-    
-    //var path = uidRef.fullPath
-    //var name = uidRef.name;
-    
-    
-    console.log("got values")
+
+
 
     var itemData = {
         ownerId: uid,
         item_cond: cond,
-        // img: image,
         title: title,
         price: price,
         category: categ,
@@ -98,19 +88,9 @@ function postItem() {
         available: status_available,
         description: desc,
         posted_on: date,
-        // itemID: newItemKey
     };
-    //creates a new key for the post
-
     db.ref().child('items').child("100").set(itemData)
-    // var newItemKey = db.ref().child('items').push().key;
-    // //writes the new post's data in the post list and user post list
-    // var updates = {};
-    // updates['/items/' + newItemKey] = itemData;
-    // updates['/user-items/' + uid + '/' + newItemKey] = itemData;
 
-    console.log("success");
-    //return firebase.database().ref().update(updates);
 }
 
 function feed() {
@@ -121,11 +101,11 @@ function feed() {
         delete itemsData.next_item_id
         updateFeedContents(itemsData)
         console.log(itemsData);
-        console.log("hello")
+
     });
 }
 function updateFeedTableWithHeader() {
-    console.log('sfsf')
+
     var table = document.getElementById('feeds')
     table.innerHTML = ''
     var row = table.insertRow(table.rows.length)
