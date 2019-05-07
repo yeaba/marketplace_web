@@ -66,6 +66,10 @@ function today() {
     return today
 }
 function postItem() {
+    //var imageName = (uid.jpg);
+    //var uidRef = imagesRef.child(imageName);
+    //var imagesRef = uidRef.parent;
+    
     const title = document.getElementById('post-title').value;
     const desc = document.getElementById('post-desc').value;
     const price = document.getElementById('post-price').value;
@@ -75,9 +79,7 @@ function postItem() {
     const status_winner = 0;
     const status_available = 'available';
     const uid = firebase.auth().currentUser.uid;
-    var imageName = (uid.jpg);
-    //var imagesRef = uidRef.parent;
-    //var uidRef = imagesRef.child(imageName);
+    
     //var path = uidRef.fullPath
     //var name = uidRef.name;
     
@@ -108,7 +110,7 @@ function postItem() {
     // updates['/user-items/' + uid + '/' + newItemKey] = itemData;
 
     console.log("success");
-    return firebase.database().ref().update(updates);
+    //return firebase.database().ref().update(updates);
 }
 
 function feed() {
